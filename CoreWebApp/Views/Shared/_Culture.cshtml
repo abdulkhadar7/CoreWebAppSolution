@@ -1,0 +1,55 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@inject Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Builder.RequestLocalizationOptions> locOptions
+@{
+    var culture = Context.Features.Get<Microsoft.AspNetCore.Localization.IRequestCultureFeature>();
+    var CultureList = locOptions.Value.SupportedUICultures.Select(x => new SelectListItem { Value = x.Name, Text = x.EnglishName }).ToList();
+    var returnURL = string.IsNullOrWhiteSpace(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}{Context.Request.QueryString}";
+}
+
+<script>
+    $(document).ready(function(){
+        var data = Cookies.get('.AspNetCore.Culture').split("|");
+        if (data[0].toLocaleLowerCase().indexOf("en") != -1) {
+                     $('#BtnImgToggle').attr('src', '../../images/uk-flag-round-circle-icon.svg');
+                 
+            
+                }
+                else{
+
+            $('#BtnImgToggle').attr('src', '../../images/qatar-flag-round-circle-icon.svg');
+           
+                }
+    });
+</script>
+
+
+    @*<div>
+    <form asp-action="CultureManagement" asp-asp-controller="Home" method="post" asp-route-returnUrl="@returnURL" >
+        <select class="form-control" name="culture" asp-for="@culture.RequestCulture.UICulture.Name" asp-items="CultureList" onchange="this.form.submit();">
+
+        </select>
+        </form>
+    </div>*@
+   <form asp-action="CultureManagement" asp-asp-controller="Home" method="post" asp-route-returnUrl="@returnURL" >
+    <div class="">
+        <div class="dropdown col-md-12">
+            <button class="btn btn-light  dropdown-toggle" type="button" data-toggle="dropdown">
+                <img id="BtnImgToggle" src="" alt="dropdwon image" class="img-fluid" width="32px"  />
+            </button>
+            <ul class="dropdown-menu">
+                <li class="pt-0 pb-1">
+                    <button class="btn btn-light col-md-12" onclick="this.form.submit();" value="ar" name="culture">
+                        <img src="~/images/qatar-flag-round-circle-icon.svg" width="32px"    /> Arabic
+                    </button>
+                </li>
+                <li>
+                    <button class="btn btn-light col-md-12" onclick="this.form.submit();" value="en" name="culture">
+                        <img src="~/images/uk-flag-round-circle-icon.svg" width="32px"   /> English
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+   </form>
+   
+    

@@ -7,7 +7,31 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Resources\Controllers\HomeController.ar.resx" />
+    <EmbeddedResource Remove="Resources\Controllers\HomeController.en.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Controllers\HomeController.ar.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </Content>
+    <Content Include="Resources\Controllers\HomeController.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </Content>
+    <Content Include="Resources\Views\Home\Index.ar.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </Content>
+    <Content Include="Resources\Views\Home\Index.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.11" />
   </ItemGroup>
 
   <ItemGroup>

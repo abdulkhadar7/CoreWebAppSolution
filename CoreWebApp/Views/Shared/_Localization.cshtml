@@ -1,0 +1,67 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@inject Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Builder.RequestLocalizationOptions> locOptions
+@{
+    var culture = Context.Features.Get<Microsoft.AspNetCore.Localization.IRequestCultureFeature>();
+    var CultureList = locOptions.Value.SupportedUICultures.Select(x => new SelectListItem { Value = x.Name, Text = x.EnglishName }).ToList();
+    var returnURL = string.IsNullOrWhiteSpace(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}{Context.Request.QueryString}";
+}
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.langChange').click(function()
+        {
+            var returnURL= '@returnURL';
+            var lang = $(this).attr('hreflang'); 
+            $.ajax({
+                type: "post",
+                url: '@Url.Action("CultureManagement","Home")',
+                data: { culture: lang, returnUrl: returnURL },
+                dataType: "html",
+                success: function (response) {
+                    window.location.href=returnURL;
+                }
+            });
+
+        });
+    });
+
+</script>
+
+
+    <div>
+       @* <form asp-action="CultureManagement" asp-asp-controller="Home" method="post" asp-route-returnUrl="@returnURL" class="form-group col-md-3">
+
+            <select class="form-control " name="culture" asp-for="@culture.RequestCulture.UICulture.Name" asp-items="CultureList" onchange="this.form.submit();">
+                
+            </select>
+        </form>*@
+
+         <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle pr-0" href="#" id="navbarLangauageLInk" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="avatar avatar-sm mt-2">
+                    <img src="" alt="" class="avatar-img rounded-circle">
+                    Change Lang
+                </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarLanguageDrop" style="min-width:auto;">
+                <a class="dropdown-item langChange" href="#" hreflang="ar">
+                    عربي
+                &nbsp; &nbsp; <img src="~/images/qatar-flag-round-circle-icon.svg" alt="..." class="avatar-img rounded-circle" width="32px">
+                </a>
+                <a class="dropdown-item langChange" href="#" hreflang="en">
+                    ENGLISH
+                    <img src="~/images/uk-flag-round-circle-icon.svg" alt="..." class="avatar-img rounded-circle" width="32px">
+                </a>
+            </div>
+        </li>
+
+
+    </div>
+
+    
+       
+    
+
+
+

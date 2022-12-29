@@ -1,10 +1,13 @@
 ﻿using CoreWebApp.Models;
 using CoreWebApp.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace CoreWebApp.Controllers
 {
+    //[Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -17,7 +20,8 @@ namespace CoreWebApp.Controllers
 
         public IActionResult Index()
         {
-            var List=_Category.GetCategories();
+            ViewBag.LanguageCulture = "en";
+            //var List=_Category.GetCategories();
             return View();
         }
 
@@ -26,10 +30,26 @@ namespace CoreWebApp.Controllers
             return View();
         }
 
+        public IActionResult PrivacyRTL()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+
+        [HttpPost]
+        public IActionResult CultureManagement(string culture,string returnUrl)
+        {
+            Response.Cookies.Append(
+               CookieRequestCultureProvider.DefaultCookieName,
+               CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+               new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
+           return LocalRedirect(returnUrl);
         }
     }
 }
