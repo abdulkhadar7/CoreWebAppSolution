@@ -1,5 +1,5 @@
 # 💫 About Me:
-I'm Currently Working as Senio Software Engineer at GDIS. I'm looking for colloborate on projects  tht will elevste my knowledge.<br>Currenlty I'm learning AI and ML. 
+I'm Currently Working as Senior Software Engineer at GDIS. I'm looking for colloborate on projects  that will elevate my knowledge.<br>Currenlty I'm learning AI and ML. 
 
 
 ## 🌐 Socials:
